@@ -1,0 +1,25 @@
+Procedure:
+#Make Sure you're at the master node home directory: /home/pureuser
+
+1. Verify JSON file FA API token from home directory:
+cat pure.json
+
+2. Create Kubernetes Secret called px-pure-secret:
+kubectl create secret generic px-pure-secret --namespace kube-system --from-file=pure.json
+
+3. Install Prometheus Operator and check if the POD is running:
+kubectl apply -f https://docs.portworx.com/samples/k8s/portworx-pxc-operator.yaml
+
+4. Install PortWorx 2.8 Spec using FlashArray Cloud Drives
+kubectl apply -f px-spec-2.8.yaml
+
+5. Wait for Portwrox Installation to complete:
+watch kubectl get pods -A
+
+6. Login to the FlashArray and verify the Cloud Volumes have been created
+
+7. Open / Explore Grafana using default user: admin | password: admin
+http://10.0.0.30:30196
+
+8. Deploy PX Apps!
+
